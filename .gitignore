@@ -4,6 +4,9 @@
 ### IDE ###
 .idea
 /build/
+/common/build/
+/batch/build/
+/api/build/
 /out/
 /tmp/
 /bin/
