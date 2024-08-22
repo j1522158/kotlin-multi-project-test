@@ -1,6 +1,6 @@
-//import io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension
-//import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-//import org.springframework.boot.gradle.tasks.bundling.BootJar
+import io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 object Versions {
     const val jdk = "17"
@@ -25,10 +25,10 @@ allprojects {
 
     tasks {
         // JSR 305チェックを明示的に有効にする
-//        withType<KotlinCompile>().configureEach {
-//            kotlinOptions.freeCompilerArgs = listOf("-Xjsr305=strict", "-java-parameters")
-//            kotlinOptions.jvmTarget = Versions.jdk
-//        }
+        withType<KotlinCompile>().configureEach {
+            kotlinOptions.freeCompilerArgs = listOf("-Xjsr305=strict", "-java-parameters")
+            kotlinOptions.jvmTarget = Versions.jdk
+        }
         withType<Test>().configureEach {
             useJUnitPlatform()
             val javaToolchains = project.extensions.getByType<JavaToolchainService>()
@@ -42,13 +42,13 @@ allprojects {
         // 共通部品を入れるプロジェクト以外はBootJarを生成可能にする
         // Jarファイル名: kotlin-gradle-multi-project-[api|batch].jar
         // 実行クラス名: com.example.[api|batch].[Api|Batch]Application
-//        withType<BootJar>().configureEach {
-//            if (this.project == rootProject || this.project.name == "common") {
-//                enabled = false
-//            } else {
-//                mainClass.set("${rootProject.group}.${this.project.name}.${this.project.name.capitalize()}Application")
-//            }
-//        }
+        withType<BootJar>().configureEach {
+            if (this.project == rootProject || this.project.name == "common") {
+                enabled = false
+            } else {
+                mainClass.set("${rootProject.group}.${this.project.name}.${this.project.name.capitalize()}Application")
+            }
+        }
         withType<Jar>().configureEach {
             if (this.project == rootProject) {
                 enabled = false
@@ -124,37 +124,5 @@ project(":api") {
 
     springBoot {
         buildInfo()
-    }
-}
-
-project(":batch") {
-    dependencies {
-        // 共通プロジェクトへの依存を追加
-        implementation(project(":common"))
-        implementation("org.springframework.boot:spring-boot-starter-web")
-    }
-
-    springBoot {
-        buildInfo()
-    }
-}
-
-// サブプロジェクトに適用
-subprojects {}
-
-// 個別プロジェクトに適用
-project(":api") {
-    dependencies {
-        implementation(":common")
-    }
-}
-project(":batch") {
-    dependencies {
-        implementation(":common")
-    }
-}
-project(":common") {
-    dependencies {
-        implementation("org.springframework:spring-web")
     }
 }
