@@ -3,10 +3,7 @@
 !gradle/wrapper/gradle-wrapper.jar
 ### IDE ###
 .idea
-/build/
-/common/build/
-/batch/build/
-/api/build/
+build
 /out/
 /tmp/
 /bin/
