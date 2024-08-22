@@ -11,4 +11,6 @@ plugins {
 }
 
 rootProject.name = "kotlin-multi-project-test"
-include("app")
+
+// apiとbatchとcommonの3つのprojectを含める
+include("api", "batch", "common")
