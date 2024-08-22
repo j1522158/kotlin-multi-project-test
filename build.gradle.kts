@@ -126,3 +126,15 @@ project(":api") {
         buildInfo()
     }
 }
+
+project(":batch") {
+    dependencies {
+        // 共通プロジェクトへの依存を追加
+        implementation(project(":common"))
+        implementation("org.springframework.boot:spring-boot-starter-web")
+    }
+
+    springBoot {
+        buildInfo()
+    }
+}
