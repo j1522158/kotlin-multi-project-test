@@ -1,8 +1,7 @@
-
 import io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
-import java.util.*
+import java.util.Locale
 
 object Versions {
     const val JDK: String = "17"
