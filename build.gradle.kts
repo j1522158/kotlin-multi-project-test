@@ -81,6 +81,36 @@ subprojects {
         implementation("org.jetbrains.kotlin:kotlin-gradle-plugin")
         implementation("org.springframework.boot:spring-boot-gradle-plugin:3.3.0")
 
+        implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+        implementation("org.jetbrains.kotlin:kotlin-reflect")
+        implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3")
+        compileOnly("org.projectlombok:lombok")
+        developmentOnly("org.springframework.boot:spring-boot-devtools")
+        runtimeOnly("com.mysql:mysql-connector-j")
+        annotationProcessor("org.projectlombok:lombok")
+        testImplementation("org.springframework.boot:spring-boot-starter-test")
+        testImplementation("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3")
+        testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+        implementation("org.springframework.boot:spring-boot-starter")
+        implementation("org.springframework.boot:spring-boot-starter-web")
+
+        // Swagger SpringFoxはSpring3系には未対応
+        implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
+        // Okio
+        implementation("com.squareup.okio:okio:3.4.0")
+        // Coroutines
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
+        // Arrow
+        // implementation("io.arrow-kt:arrow-core")
+
+        // KotlinクラスをJSONにシリアライズ/デシリアライズするためのサポート機能
+        implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+        // KotsetのJUnit5ランナー
+        testImplementation("io.kotest:kotest-runner-junit5:5.4.2")
+        testImplementation("io.kotest:kotest-assertions-core:5.4.2")
+        testImplementation("io.kotest:kotest-property:5.4.2")
+
         testImplementation("org.springframework.boot:spring-boot-starter-test") {
             exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
         }
