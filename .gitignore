@@ -3,7 +3,9 @@
 !gradle/wrapper/gradle-wrapper.jar
 ### IDE ###
 .idea
-build
+common/build
+api/build
+batch/build
 /out/
 /tmp/
 /bin/
