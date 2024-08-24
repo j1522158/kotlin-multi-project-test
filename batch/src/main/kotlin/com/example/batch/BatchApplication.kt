@@ -7,13 +7,13 @@ import org.springframework.boot.runApplication
 @SpringBootApplication(
     scanBasePackages = [
         "com.example.common",
-        "com.example.api"
+        "com.example.batch"
     ]
 )
 @ConfigurationPropertiesScan(
     basePackages = [
         "com.example.common",
-        "com.example.api"
+        "com.example.batch"
     ]
 )
 class BatchApplication {
