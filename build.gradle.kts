@@ -1,5 +1,6 @@
 
 import io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 import java.util.*
@@ -27,10 +28,12 @@ allprojects {
 
     // TODO 非推奨
     tasks {
-        // JSR 305チェックを明示的に有効にする
         withType<KotlinCompile>().configureEach {
-            kotlinOptions.freeCompilerArgs = listOf("-Xjsr305=strict", "-java-parameters")
-            kotlinOptions.jvmTarget = Versions.JDK
+            compilerOptions {
+                // JSR 305チェックを明示的に有効にする
+                freeCompilerArgs.addAll("-Xjsr305=strict", "-java-parameters")
+                jvmTarget.set(JvmTarget.fromTarget(Versions.JDK))
+            }
         }
         withType<Test>().configureEach {
             useJUnitPlatform()
