@@ -1,7 +1,8 @@
+
 import io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
-import java.util.Locale
+import java.util.*
 
 object Versions {
     const val JDK: String = "17"
@@ -24,6 +25,7 @@ allprojects {
         maven("https://plugins.gradle.org/m2/")
     }
 
+    // TODO 非推奨
     tasks {
         // JSR 305チェックを明示的に有効にする
         withType<KotlinCompile>().configureEach {
