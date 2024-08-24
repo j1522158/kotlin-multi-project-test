@@ -1,17 +1,19 @@
+
 import io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
+import java.util.*
 
 object Versions {
-    const val jdk = "17"
+    const val JDK: String = "17"
 }
 
 plugins {
     application
     idea
-    kotlin("jvm") version "1.6.10"
-    kotlin("plugin.spring") version "1.6.10"
-    id("org.springframework.boot") version "2.6.6"
+    kotlin("jvm") version "2.0.0"
+    kotlin("plugin.spring") version "2.0.0"
+    id("org.springframework.boot") version "3.3.0"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
 }
 
@@ -27,14 +29,14 @@ allprojects {
         // JSR 305チェックを明示的に有効にする
         withType<KotlinCompile>().configureEach {
             kotlinOptions.freeCompilerArgs = listOf("-Xjsr305=strict", "-java-parameters")
-            kotlinOptions.jvmTarget = Versions.jdk
+            kotlinOptions.jvmTarget = Versions.JDK
         }
         withType<Test>().configureEach {
             useJUnitPlatform()
             val javaToolchains = project.extensions.getByType<JavaToolchainService>()
             javaLauncher.set(
                 javaToolchains.launcherFor {
-                    languageVersion.set(JavaLanguageVersion.of(Versions.jdk.toInt()))
+                    languageVersion.set(JavaLanguageVersion.of(Versions.JDK.toInt()))
                 }
             )
         }
@@ -46,7 +48,11 @@ allprojects {
             if (this.project == rootProject || this.project.name == "common") {
                 enabled = false
             } else {
-                mainClass.set("${rootProject.group}.${this.project.name}.${this.project.name.capitalize()}Application")
+                mainClass.set("${rootProject.group}.${this.project.name}.${this.project.name.replaceFirstChar {
+                    if (it.isLowerCase()) it.titlecase(
+                        Locale.getDefault()
+                    ) else it.toString()
+                }}Application")
             }
         }
         withType<Jar>().configureEach {
@@ -72,7 +78,7 @@ subprojects {
         implementation("org.jetbrains.kotlin:kotlin-stdlib")
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("org.jetbrains.kotlin:kotlin-gradle-plugin")
-        implementation("org.springframework.boot:spring-boot-gradle-plugin:2.6.6")
+        implementation("org.springframework.boot:spring-boot-gradle-plugin:3.3.0")
 
         testImplementation("org.springframework.boot:spring-boot-starter-test") {
             exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
